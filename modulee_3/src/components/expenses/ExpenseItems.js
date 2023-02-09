@@ -1,17 +1,32 @@
 import ExpenseItem from './expenseItem'
+import ExpenseFilter from '../expenseFilter/ExpenseFilter'
 import './ExpenseItems.css'
+import React,{useState} from 'react'
+import ExpensesList from './ExpensesList'
 function ExpenseItems(props)
 {
-
+    const [selectedYear,setSelectedYear]=useState('2020');
+    const [expenses,setExpenses]=useState(props.expenses);
+    const yearChangeHandler=(selectedyearr)=>{
+        setSelectedYear(selectedyearr);
+       
+        
+    }
+    const filteredExpense = props.expenses.filter(expense => {
+        return expense.date.getFullYear().toString() ===  selectedYear;
+    })
+    
     return(
+      
+        
        
         <div className="expenses">
-        
-        <ExpenseItem title = {props.expenses[0].title} amount={props.expenses[0].amount} date={props.expenses[0].date}></ExpenseItem>
-        <ExpenseItem title = {props.expenses[1].title} amount={props.expenses[1].amount} date={props.expenses[1].date}></ExpenseItem>
-        <ExpenseItem title = {props.expenses[2].title} amount={props.expenses[2].amount} date={props.expenses[2].date}></ExpenseItem>
-        <ExpenseItem title = {props.expenses[3].title} amount={props.expenses[3].amount} date={props.expenses[3].date}></ExpenseItem>
+        <ExpenseFilter defaultYear={selectedYear} onYearChange={yearChangeHandler}/>
+        <ExpensesList items={filteredExpense}/>
+       
+       
         </div>
+        
     )
 }
 export default ExpenseItems
