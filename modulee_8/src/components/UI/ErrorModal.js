@@ -4,6 +4,13 @@ import Card from "./Card";
 import Button from "./button";
 const ErrorModal = (props)=>{
 
+        const BackDrop = (props) => {
+            return <div className={styles.backdrop} onClick={props.onClick}/>
+            
+        }
+        const ModalOverlay = (props) => {
+            
+        }
         return (
             <div className={styles.backdrop} onClick={props.onClick}>
                 <div/>

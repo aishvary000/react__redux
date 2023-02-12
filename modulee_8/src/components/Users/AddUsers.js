@@ -1,17 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
 import styles from './AddUser.module.css'
 import Card from '../UI/Card'
 import Button from '../UI/button'
 import ErrorModal from '../UI/ErrorModal'
 const AddUser = (props)=>{
-    const [enteredUserName,setEnteredUserName] = useState('');
-    const [enteredAge,setEnteredAge] = useState('');
+
+    const  nameInputRef = useRef();
+    const  ageInputRef = useRef();
     const [error, setError] = useState();
     const addUserHandler = (event) =>{
 
         event.preventDefault();
-        
-        if(enteredUserName.trim().length === 0 || enteredAge.trim().length === 0)
+        const enteredName = nameInputRef.current.value;
+        const enteredUserAge = ageInputRef.current.value;
+        if(enteredName.trim().length === 0 || enteredUserAge.trim().length === 0)
         {
             setError({
                 title:"InValid input",
@@ -19,7 +21,7 @@ const AddUser = (props)=>{
             });
             return;
         }
-        if(+enteredAge<1) //whatever is received inside input tag is received as string, as in useState i have
+        if(+enteredUserAge<1) //whatever is received inside input tag is received as string, as in useState i have
         //initialized it as string
         {
             setError({
@@ -31,22 +33,17 @@ const AddUser = (props)=>{
         }
         const user ={
             id:Math.random().toString(),
-            name:enteredUserName,
-            age:enteredAge
+            name:enteredName,
+            age:enteredUserAge
         };
         props.addUser(user);
-        setEnteredAge('');
-        setEnteredUserName('');
+        nameInputRef.current.value = "";
+        ageInputRef.current.value = "";
 
 
     }
     
-    const userNameChangeHandler = (event)=>{
-            setEnteredUserName(event.target.value); 
-    }
-    const ageChangeHandler = (event)=>{
-        setEnteredAge(event.target.value)
-    }
+   
     const errorHanler = () => {
         setError(null);
     }
@@ -60,9 +57,9 @@ const AddUser = (props)=>{
     
     <form onSubmit={addUserHandler}>
         <label htmlFor='username'>UserName</label>
-        <input value={enteredUserName} onChange={userNameChangeHandler} id="userdname" type="text"></input>
+        <input  id="userdname" type="text" ref={nameInputRef}></input>
         <label htmlFor='age'>Age (Years) </label>
-        <input value={enteredAge} onChange={ageChangeHandler} id="age" type="number"></input>
+        <input  id="age" type="number" ref={ageInputRef}></input>
         <Button type = 'submit'>Add User</Button>
         {/* <button type='submit'>Add user</button> */}
     </form>
