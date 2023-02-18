@@ -2,6 +2,8 @@ import styles from './MealItemForm.module.css'
 import Input from '../../UI/input';
 const MealItemForm = ()=>{
 
+    
+
     return <form className={styles.form}>
             <Input label="amount" input={{
                 id:'amount',
