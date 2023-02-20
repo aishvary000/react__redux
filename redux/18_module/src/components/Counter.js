@@ -3,7 +3,7 @@ import  {useDispatch, useSelector} from 'react-redux';
 import { counterActions } from '../store/counter';
 const Counter = () => {
 
-  const counter = useSelector((state) => state.counter.counter);
+  const counter = useSelector((state) => state.counter.counter);//here we are accessing the reducers individually
   const toggleVisible = useSelector((state) => state.counter.showCounter);
   const dispatch = useDispatch();
   ///console.log(toggleVisible);
